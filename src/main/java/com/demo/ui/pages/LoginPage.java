@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
 
 public class LoginPage {
 
@@ -25,6 +26,8 @@ public class LoginPage {
     private final By passwordField = By.id("password");
     private final By loginButton = By.id("login-button");
     private final By errorMessage = By.cssSelector("h3[data-test='error']");
+    private final By loginCredentialBox = By.id("login_credentials");
+    private final By passwordCredentialBox = By.className("login_password");
 
     // Actions
     public void enterUserName(String userName) {
@@ -52,6 +55,33 @@ public class LoginPage {
     public void loginAs(String userName, String password) {
         enterUserName(userName);
         enterPassword(password);
+        clickLoginButton();
+    }
+
+    public String getStandardUsername() {
+        String allUsernames = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(this.loginCredentialBox)).getText();
+        return Arrays.stream(allUsernames.split("\n"))
+                .filter(u -> u.trim().equals("standard_user"))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No 'standard user' found"));
+    }
+
+    public String getStandardPassword() {
+        String passwordText = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(this.passwordCredentialBox)).getText();
+
+        String[] parts = passwordText.split(":");
+        if (parts.length > 1) {
+            return parts[1].trim();
+        } else {
+            throw new RuntimeException("The password cannot be found in the password box!");
+        }
+    }
+
+    public void loginAsStandardUser() {
+        enterUserName(getStandardUsername());
+        enterPassword(getStandardPassword());
         clickLoginButton();
     }
 }
