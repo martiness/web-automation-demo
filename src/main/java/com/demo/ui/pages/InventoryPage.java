@@ -31,6 +31,7 @@ public class InventoryPage {
     private final By itemDescriptions = By.className("inventory_item_desc");
     private final By cartBadge = By.className("shopping_cart_badge");
     private final By sortDropdown = By.className("product+sort_container");
+    private final By shoppingCartButton = By.className("shopping_cart_link");
 
     // Actions
     // Add the First Item to the Cart
@@ -104,6 +105,13 @@ public class InventoryPage {
     public List<String> getItemDescriptionsText() {
         List<String> descriptionsText = getTextFromElements(itemDescriptions);
         return descriptionsText;
+    }
+
+    // Click Shopping Card Button
+    public void clickShoppingCartButton() {
+        WebElement shoppingCartButtonElement = wait.until(
+                ExpectedConditions.presenceOfElementLocated(shoppingCartButton));
+        shoppingCartButtonElement.click();
     }
 
     // Helper

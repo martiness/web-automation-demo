@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class LoginPage {
 
-    // WebDriver
+    // Driver
     private final WebDriver driver;
     private final WebDriverWait wait;
 
@@ -20,7 +20,7 @@ public class LoginPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // LogIn page locators
+    // Elements
     private final By usernameField = By.id("user-name");
     private final By passwordField = By.id("password");
     private final By loginButton = By.id("login-button");
@@ -29,6 +29,7 @@ public class LoginPage {
     private final By passwordCredentialBox = By.className("login_password");
 
     // Actions
+    // Enter Username
     public void enterUserName(String userName) {
         WebElement usernameField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(this.usernameField));
@@ -36,6 +37,7 @@ public class LoginPage {
         usernameField.sendKeys(userName);
     }
 
+    // Enter Password
     public void enterPassword(String password) {
         WebElement passwordField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(this.passwordField));
@@ -43,20 +45,27 @@ public class LoginPage {
         passwordField.sendKeys(password);
     }
 
+    // Click the Login Button
     public void clickLoginButton() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(this.loginButton)).click();
+        WebElement loginButton = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(this.loginButton));
+        loginButton.click();
     }
 
+    // Get Error Message
     public String getErrorMessage() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(this.errorMessage)).getText();
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(this.errorMessage));
+        return errorMessage.getText();
     }
 
+    // Custom login
     public void loginAs(String userName, String password) {
         enterUserName(userName);
         enterPassword(password);
         clickLoginButton();
     }
 
+    // Get Standard Username
     public String getStandardUsername() {
         String allUsernames = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(this.loginCredentialBox)).getText();
@@ -66,6 +75,7 @@ public class LoginPage {
                 .orElseThrow(() -> new RuntimeException("No 'standard user' found"));
     }
 
+    // Get Standard User Password
     public String getStandardPassword() {
         String passwordText = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(this.passwordCredentialBox)).getText();
@@ -78,6 +88,7 @@ public class LoginPage {
         }
     }
 
+    // Login as a Standard User
     public void loginAsStandardUser() {
         enterUserName(getStandardUsername());
         enterPassword(getStandardPassword());
