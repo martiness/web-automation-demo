@@ -1,0 +1,142 @@
+package com.demo.ui.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
+public class InventoryPage {
+
+    // Driver
+    private final WebDriver driver;
+    private WebDriverWait wait;
+
+    public InventoryPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    // Elements
+    private final By inventoryItems = By.className("inventory_item");
+    private final By addToCartButtons = By.cssSelector("button.btn_inventory");
+    private final By removeButtons = By.cssSelector("button.btn_secondary");
+    private final By itemPrices = By.className("inventory_item_price");
+    private final By itemTitles = By.className("inventory_item_name");
+    private final By itemDescriptions = By.className("inventory_item_desc");
+    private final By cartBadge = By.className("shopping_cart_badge");
+    private final By sortDropdown = By.className("product+sort_container");
+
+    // Actions
+    // Add the First Item to the Cart
+    public void addFirstItemToCart(){
+        List<WebElement> buttons = getAddItemsToCart();
+        if(!buttons.isEmpty()){
+            buttons.get(0).click();
+        } else {
+            throw new NoSuchElementException("No add to cart button found");
+        }
+    }
+
+    // Add the Last Item to the Cart
+    public void addLastItemToCart(){
+        List<WebElement> buttons = getAddItemsToCart();
+        if(!buttons.isEmpty()){
+            buttons.get(buttons.size() - 1).click();
+        } else {
+            throw new NoSuchElementException("No add to cart button found");
+        }
+    }
+
+    // Add Item to Cart by Index
+    public void addItemsToCartAtIndex(int index) {
+        List<WebElement> buttons = getAddItemsToCart();
+        if(!buttons.isEmpty()){
+            if(index >= 0 && index < buttons.size()) {
+                buttons.get(index).click();
+            }
+        } else {
+            throw new NoSuchElementException("No add to cart button found");
+        }
+    }
+
+    // Get the Number of Items in the Cart
+    public int getNumberOfItemsToCart() {
+        List<WebElement> badges = driver.findElements(cartBadge);
+        if (badges.isEmpty()) {
+            return 0;
+        }
+
+        try {
+            WebElement badge = wait.until(ExpectedConditions.visibilityOf(badges.get(0)));
+            return Integer.parseInt(badge.getText());
+        } catch (Exception e) {
+            System.out.println("Badge not visible or not parseable.");
+            return 0;
+        }
+    }
+
+    // Sort the Items by Category
+    public void sortByCategory(String category){
+        WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(sortDropdown));
+        dropdown.click();
+        dropdown.findElement(By.xpath("//option[text()='" + category + "']")).click();
+    }
+
+    // Get Item's Price
+    public List<String> getItemPricesText() {
+        List<String> priceText = getTextFromElements(itemPrices);
+        return priceText;
+    }
+
+    // Get Item's Title
+    public List<String> getItemTitlesText() {
+        List<String> titleText = getTextFromElements(itemTitles);
+        return titleText;
+    }
+
+    // Get Item's Description
+    public List<String> getItemDescriptionsText() {
+        List<String> descriptionsText = getTextFromElements(itemDescriptions);
+        return descriptionsText;
+    }
+
+    // Helper
+    // Get all Items - 'Add to cart' buttons
+    public List<WebElement> getAddItemsToCart(){
+        List<WebElement> buttons = wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(addToCartButtons));
+        return buttons;
+    }
+
+    // Get all Items - 'Remove' buttons
+    public List<WebElement> getRemoveButtons() {
+        List<WebElement> buttons = wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(removeButtons));
+        return buttons;
+    }
+
+    // Get Text from Element
+    public List<String> getTextFromElements(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator))
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public List<WebElement> getAllInventoryItems() {
+        List<WebElement> items = wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(inventoryItems));
+        return items;
+    }
+
+
+
+
+
+}
