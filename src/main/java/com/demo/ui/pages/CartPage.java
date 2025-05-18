@@ -91,12 +91,17 @@ public class CartPage {
                 WebElement removeButton = item.findElement(By.tagName("button"));
                 wait.until(ExpectedConditions.elementToBeClickable(removeButton)).click();
 
-                // ✅ Изчакай броят на cart_item да намалее с 1
                 wait.until(driver -> driver.findElements(By.className("cart_item")).size() < originalCount);
                 return;
             }
         }
 
         throw new NoSuchElementException("Item not found in cart: " + itemName);
+    }
+
+    // Click Checkout button
+    public void clickCheckoutButton() {
+        WebElement checkoutButtonElement = driver.findElement(checkoutButton);
+        checkoutButtonElement.click();
     }
 }
