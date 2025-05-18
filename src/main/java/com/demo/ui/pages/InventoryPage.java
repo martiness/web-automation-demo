@@ -29,7 +29,7 @@ public class InventoryPage {
     private final By itemTitles = By.className("inventory_item_name");
     private final By itemDescriptions = By.className("inventory_item_desc");
     private final By cartBadge = By.className("shopping_cart_badge");
-    private final By sortDropdown = By.className("product+sort_container");
+    private final By sortDropdown = By.className("product_sort_container");
     private final By shoppingCartButton = By.className("shopping_cart_link");
 
     // Actions
@@ -81,29 +81,22 @@ public class InventoryPage {
         }
     }
 
-    // Sort the Items by Category
+    // Sort the product items by Category
     public void sortByCategory(String category){
-        WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(sortDropdown));
+        WebElement dropdown = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(sortDropdown));
         dropdown.click();
         dropdown.findElement(By.xpath("//option[text()='" + category + "']")).click();
     }
 
-    // Get Item's Price
-    public List<String> getItemPricesText() {
-        List<String> priceText = getTextFromElements(itemPrices);
-        return priceText;
-    }
-
-    // Get Item's Title
-    public List<String> getItemTitlesText() {
-        List<String> titleText = getTextFromElements(itemTitles);
-        return titleText;
-    }
-
-    // Get Item's Description
-    public List<String> getItemDescriptionsText() {
-        List<String> descriptionsText = getTextFromElements(itemDescriptions);
-        return descriptionsText;
+    // Get all product items prices
+    public List<Double> getItemPrices() {
+        List<WebElement> priceElements = driver.findElements(itemPrices);
+        return priceElements.stream()
+                .map(WebElement::getText)
+                .map(s -> s.replace("$", ""))
+                .map(Double::parseDouble)
+                .collect(Collectors.toList());
     }
 
     // Click Shopping Card Button
@@ -141,9 +134,4 @@ public class InventoryPage {
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(inventoryItems));
         return items;
     }
-
-
-
-
-
 }

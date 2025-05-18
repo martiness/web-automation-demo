@@ -25,7 +25,7 @@ public class ScenarioOneTest extends BaseTest {
     private static final String ITEM_ONESIE = "Sauce Labs Onesie";
 
     @Test
-    public void testSuccessfulCheckoutFlow() {
+    public void testScenarioOne() {
         driver.get(baseUrl);
 
         // Log in with the standard user
