@@ -1,5 +1,6 @@
-package com.demo.ui;
+package com.demo.ui.exploratory;
 
+import com.demo.ui.BaseTest;
 import com.demo.ui.pages.InventoryPage;
 import com.demo.ui.pages.LoginPage;
 import org.junit.jupiter.api.Test;
@@ -78,6 +79,7 @@ public class InventoryTests extends BaseTest {
             button.click();
         }
 
+        // Varification that items were successfully removed from the card
         int finalCardCount = inventoryPage.getNumberOfItemsToCart();
         assertEquals(0, finalCardCount, "Expected cart to be empty. However there was: " + finalCardCount);
     }

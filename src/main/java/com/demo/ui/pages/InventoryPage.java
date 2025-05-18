@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class InventoryPage {
-
     // Driver
     private final WebDriver driver;
     private WebDriverWait wait;

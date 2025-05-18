@@ -1,11 +1,12 @@
-package com.demo.ui;
+package com.demo.ui.exploratory;
 
+import com.demo.ui.BaseTest;
 import com.demo.ui.pages.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CheckoutTests extends BaseTest{
+public class CheckoutTests extends BaseTest {
 
     @Test
     public void testSuccessfulCheckoutFlow() {

@@ -13,8 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class CartPage {
-
-    //Driver
+    // Driver
     private final WebDriver driver;
     private final WebDriverWait wait;
 
@@ -29,6 +28,7 @@ public class CartPage {
     private final By cartItemDescriptions = By.className("inventory_item_desc");
     private final By removeButtons = By.cssSelector("button.cart_button");
     private final By checkoutButton = By.id("checkout");
+    private final By continueShoppingButton = By.id("continue-shopping");
 
     //Actions
     // Get Titles of all products in the Cart
@@ -63,9 +63,11 @@ public class CartPage {
 
     // Get Number of cart items
     public int getNumberOfCartItems() {
-        List<WebElement> cartItems = wait.until(
-                ExpectedConditions.presenceOfAllElementsLocatedBy(this.cartItemTitles));
-        return cartItems.size();
+        List<WebElement> items = driver.findElements(this.cartItemTitles);
+        if (!items.isEmpty()) {
+            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(this.cartItemTitles));
+        }
+        return items.size();
     }
 
     // Remove all Items from the Cart
@@ -101,7 +103,15 @@ public class CartPage {
 
     // Click Checkout button
     public void clickCheckoutButton() {
-        WebElement checkoutButtonElement = driver.findElement(checkoutButton);
+        WebElement checkoutButtonElement = wait.until(
+                ExpectedConditions.presenceOfElementLocated(this.checkoutButton));
         checkoutButtonElement.click();
+    }
+
+    // Click Continue Shopping button
+    public void clickContinueShoppingButton() {
+        WebElement continueShoppingButtonElement = wait.until(
+                ExpectedConditions.presenceOfElementLocated(this.continueShoppingButton));
+        continueShoppingButtonElement.click();
     }
 }

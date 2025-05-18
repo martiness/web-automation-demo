@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class CheckoutOverviewPage {
-
+    // Driver
     private final WebDriver driver;
     private final WebDriverWait wait;
 
@@ -18,8 +18,10 @@ public class CheckoutOverviewPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    // Elements
     private final By finishButton = By.id("finish");
 
+    // Actions
     public void clickFinish() {
         WebElement finish = wait.until(ExpectedConditions.elementToBeClickable(finishButton));
         finish.click();

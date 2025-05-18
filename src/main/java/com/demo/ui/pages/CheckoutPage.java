@@ -9,19 +9,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class CheckoutPage {
+    // Driver
     private final WebDriver driver;
     private final WebDriverWait wait;
-
-    private final By firstNameInput = By.id("first-name");
-    private final By lastNameInput = By.id("last-name");
-    private final By postalCodeInput = By.id("postal-code");
-    private final By continueButton = By.id("continue");
 
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    // Elements
+    private final By firstNameInput = By.id("first-name");
+    private final By lastNameInput = By.id("last-name");
+    private final By postalCodeInput = By.id("postal-code");
+    private final By continueButton = By.id("continue");
+
+    // Actions
     // Fill the Fields
     public void fillField(By locator, String value) {
         WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

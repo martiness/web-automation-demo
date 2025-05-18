@@ -10,7 +10,6 @@ import java.time.Duration;
 import java.util.Arrays;
 
 public class LoginPage {
-
     // Driver
     private final WebDriver driver;
     private final WebDriverWait wait;

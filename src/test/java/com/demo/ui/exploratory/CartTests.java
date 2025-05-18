@@ -1,5 +1,6 @@
-package com.demo.ui;
+package com.demo.ui.exploratory;
 
+import com.demo.ui.BaseTest;
 import com.demo.ui.pages.CartPage;
 import com.demo.ui.pages.InventoryPage;
 import com.demo.ui.pages.LoginPage;
