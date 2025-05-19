@@ -12,6 +12,7 @@
 
   <properties>
     <includeTags>none</includeTags>
+    <env>dev</env>
   </properties>
 
   <dependencies>

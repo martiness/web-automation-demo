@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Collections;
+import com.demo.utils.ConfigReader;
 
 public abstract class BaseTest {
 
@@ -35,7 +36,7 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
 
-        baseUrl = "https://www.saucedemo.com/";
+        baseUrl = ConfigReader.get("base.url");
         driver.get(baseUrl);
 
         wait.until(ExpectedConditions.titleContains("Swag Labs"));
