@@ -1,6 +1,12 @@
 package com.demo.ui;
 
 import com.demo.ui.pages.*;
+import io.qameta.allure.*;
+import io.qameta.allure.junit5.AllureJunit5;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("checkout")
+@ExtendWith(AllureJunit5.class)
 public class CheckoutFlowTest extends BaseTest {
     /*  Scenario 1
     Use the standard user and password (they are prone to change, think how to obtain them)
@@ -26,8 +32,15 @@ public class CheckoutFlowTest extends BaseTest {
     private static final String ITEM_TSHIRT = "Test.allTheThings() T-Shirt (Red)";
     private static final String ITEM_ONESIE = "Sauce Labs Onesie";
 
+    @Epic("UI Tests")
+    @Feature("Checkout Flow")
+    @Story("Complete Order")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Verify successful order placement")
+    @Description("Test that completes full checkout and verifies confirmation.")
+    @Tag("checkout")
     @Test
-    public void testScenarioOne() {
+    public void testCheckoutFlow() {
         driver.get(baseUrl);
 
         // Log in with the standard user

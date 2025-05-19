@@ -1,6 +1,8 @@
 package com.demo.ui;
 
 import com.demo.ui.pages.*;
+import io.qameta.allure.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("sorting")
-public class SortingTest extends BaseTest {
+public class SortingFlowTest extends BaseTest {
     /* Scenario 2
     Log in with the standard user
     Verify when for sorting it is selected "Price (high to low)"
@@ -19,9 +20,15 @@ public class SortingTest extends BaseTest {
     Logout from the system
      */
 
-
+    @Epic("UI Tests")
+    @Feature("Sorting Flow")
+    @Story("Sorting Order")
+    @DisplayName("Verify successful product sorting")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Test that products are sorted and logout.")
+    @Tag("sorting")
     @Test
-    public void testScenarioTwo() {
+    public void testSortingFlow() {
         driver.get(baseUrl);
 
         // Log in with the standard user

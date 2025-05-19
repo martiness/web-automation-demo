@@ -1,13 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.demo.ui</groupId>
   <artifactId>web-automation-demo</artifactId>
-  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>demo-ui-tests</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <includeTags>none</includeTags>
+  </properties>
 
   <dependencies>
     <!-- Selenium -->
@@ -22,29 +27,62 @@
       <artifactId>junit-jupiter</artifactId>
       <version>5.10.1</version>
     </dependency>
+    <!-- JUnit Platform Provider -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>1.10.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Allure JUnit 5 adapter -->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit5</artifactId>
+      <version>2.27.0</version>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
+      <!-- Allure Maven plugin -->
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.11.2</version>
+        <executions>
+          <execution>
+            <id>allure-report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Surefire plugin with tag filtering and Allure support -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
+          <useSystemClassLoader>false</useSystemClassLoader>
+
+          <!-- Allure output location -->
+          <systemPropertyVariables>
+            <allure.results.directory>target/allure-results</allure.results.directory>
+          </systemPropertyVariables>
+
+          <!-- JUnit 5 tag filtering -->
           <properties>
             <configurationParameters>
-              junit.jupiter.tags.include=${includeTags},
-              junit.jupiter.tags.include=checkout,
-              junit.jupiter.tags.include=sorting,
-              junit.jupiter.tags.exclude=exploratory
+              junit.jupiter.tags.include=${includeTags}
             </configurationParameters>
           </properties>
         </configuration>
       </plugin>
-
     </plugins>
   </build>
 
+
 </project>
-
-
