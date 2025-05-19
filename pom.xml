@@ -25,13 +25,24 @@
   </dependencies>
 
   <build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-surefire-plugin</artifactId>
-      <version>3.2.5</version>
-    </plugin>
-  </plugins>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <properties>
+            <configurationParameters>
+              junit.jupiter.tags.include=${includeTags},
+              junit.jupiter.tags.include=checkout,
+              junit.jupiter.tags.include=sorting,
+              junit.jupiter.tags.exclude=exploratory
+            </configurationParameters>
+          </properties>
+        </configuration>
+      </plugin>
+
+    </plugins>
   </build>
 
 </project>

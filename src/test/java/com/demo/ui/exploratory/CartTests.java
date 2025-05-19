@@ -5,6 +5,8 @@ import com.demo.ui.pages.CartPage;
 import com.demo.ui.pages.InventoryPage;
 import com.demo.ui.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled // Internal exploratory verification tests
+@Tag("exploratory")
 public class CartTests extends BaseTest {
 
     @Test

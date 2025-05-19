@@ -1,13 +1,15 @@
 package com.demo.ui;
 
 import com.demo.ui.pages.*;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ScenarioOneTest extends BaseTest {
+@Tag("checkout")
+public class CheckoutFlowTest extends BaseTest {
     /*  Scenario 1
     Use the standard user and password (they are prone to change, think how to obtain them)
 

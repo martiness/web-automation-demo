@@ -1,6 +1,7 @@
 package com.demo.ui;
 
 import com.demo.ui.pages.*;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,13 +10,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ScenarioTwoTest extends BaseTest {
+@Tag("sorting")
+public class SortingTest extends BaseTest {
     /* Scenario 2
     Log in with the standard user
     Verify when for sorting it is selected "Price (high to low)"
     Then the items are sorted in the correct manner
     Logout from the system
      */
+
+
     @Test
     public void testScenarioTwo() {
         driver.get(baseUrl);

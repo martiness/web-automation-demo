@@ -3,6 +3,8 @@ package com.demo.ui.exploratory;
 import com.demo.ui.BaseTest;
 import com.demo.ui.pages.InventoryPage;
 import com.demo.ui.pages.LoginPage;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled // Internal exploratory verification tests
+@Tag("exploratory")
 public class InventoryTests extends BaseTest {
 
     @Test

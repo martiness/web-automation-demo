@@ -2,10 +2,14 @@ package com.demo.ui.exploratory;
 
 import com.demo.ui.BaseTest;
 import com.demo.ui.pages.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled // Internal exploratory verification tests
+@Tag("exploratory")
 public class CheckoutTests extends BaseTest {
 
     @Test

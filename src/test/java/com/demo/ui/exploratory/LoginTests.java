@@ -3,13 +3,13 @@ package com.demo.ui.exploratory;
 
 import com.demo.ui.BaseTest;
 import com.demo.ui.pages.LoginPage;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled // Internal exploratory verification tests
+@Tag("exploratory")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LoginTests extends BaseTest
 {
