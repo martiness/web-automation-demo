@@ -1,10 +1,10 @@
 package com.demo.ui;
 
 import com.demo.utils.BrowserResolution;
+import com.demo.utils.ConfigReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,8 +14,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Collections;
-import com.demo.utils.ConfigReader;
 
+/**
+ * Abstract base class for all test classes.
+ *
+ * Handles common setup and teardown logic:
+ * - Browser selection (Chrome or Firefox)
+ * - Custom browser options
+ * - Resolution configuration
+ * - Environment-specific base URL
+ */
 public abstract class BaseTest {
 
     protected WebDriver driver;
@@ -24,8 +32,10 @@ public abstract class BaseTest {
 
     @BeforeEach
     public void setUp() {
+        // Read browser type from system properties (default is Chrome)
         String browser = System.getProperty("browser", "chrome").toLowerCase();
 
+        // Instantiate the appropriate WebDriver with browser-specific options
         switch (browser) {
             case "firefox":
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -35,6 +45,7 @@ public abstract class BaseTest {
                 firefoxOptions.addPreference("signon.rememberSignons", false);
                 driver = new FirefoxDriver(firefoxOptions);
                 break;
+
             case "chrome":
             default:
                 ChromeOptions options = new ChromeOptions();
@@ -48,26 +59,31 @@ public abstract class BaseTest {
                 break;
         }
 
+        // Initialize WebDriverWait
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().deleteAllCookies();
 
+        // Set browser window size based on config, fallback to maximize
         String resolutionKey = ConfigReader.get("browser.resolution"); // e.g. FULL_HD
         try {
             BrowserResolution resolution = BrowserResolution.from(resolutionKey);
             driver.manage().window().setSize(resolution.toDimension());
+            System.out.println("[INFO] Resolution set to: " + resolutionKey);
         } catch (Exception e) {
-            System.out.println("Invalid resolution config: '" + resolutionKey + "', using default maximize.");
+            System.out.println("[WARN] Invalid resolution config: '" + resolutionKey + "', using default maximize.");
             driver.manage().window().maximize();
         }
 
+        // Load base URL from config
         baseUrl = ConfigReader.get("base.url");
         driver.get(baseUrl);
         wait.until(ExpectedConditions.titleContains("Swag Labs"));
 
-        System.out.println("Running tests on: " + System.getProperty("env", "dev"));
-        System.out.println("Browser: " + browser);
-        System.out.println("Resolution: " + resolutionKey);
-        System.out.println("Base URL: " + baseUrl);
+        // Log execution configuration to console
+        System.out.println("[INFO] Running tests on: " + System.getProperty("env", "dev"));
+        System.out.println("[INFO] Browser: " + browser);
+        System.out.println("[INFO] Resolution: " + resolutionKey);
+        System.out.println("[INFO] Base URL: " + baseUrl);
     }
 
     @AfterEach
@@ -75,8 +91,9 @@ public abstract class BaseTest {
         if (driver != null) {
             try {
                 driver.quit();
+                System.out.println("[INFO] WebDriver session closed successfully.");
             } catch (Exception e) {
-                System.err.println("Failed to quit WebDriver: " + e.getMessage());
+                System.err.println("[ERROR] Failed to quit WebDriver: " + e.getMessage());
             }
         }
     }
