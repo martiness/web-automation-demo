@@ -142,6 +142,13 @@ allure serve target/allure-results
 
 ---
 
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
 ## 👤 Author
+Martin Kenov
 
 _This project is built for learning and demonstration purposes._
