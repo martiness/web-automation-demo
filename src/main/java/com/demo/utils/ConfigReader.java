@@ -8,7 +8,7 @@ public class ConfigReader {
     private static final Properties properties = new Properties();
 
     static {
-        String env = System.getProperty("env", "dev"); // default env
+        String env = System.getProperty("env", "dev"); // default environment
         String fileName = "config/" + env + ".properties";
         try (InputStream input = ConfigReader.class.getClassLoader().getResourceAsStream(fileName)) {
             if (input == null) {

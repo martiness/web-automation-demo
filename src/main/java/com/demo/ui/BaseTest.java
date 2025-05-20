@@ -1,8 +1,10 @@
 package com.demo.ui;
 
+import com.demo.utils.BrowserResolution;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -47,12 +49,25 @@ public abstract class BaseTest {
         }
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
+
+        String resolutionKey = ConfigReader.get("browser.resolution"); // e.g. FULL_HD
+        try {
+            BrowserResolution resolution = BrowserResolution.from(resolutionKey);
+            driver.manage().window().setSize(resolution.toDimension());
+        } catch (Exception e) {
+            System.out.println("Invalid resolution config: '" + resolutionKey + "', using default maximize.");
+            driver.manage().window().maximize();
+        }
 
         baseUrl = ConfigReader.get("base.url");
         driver.get(baseUrl);
         wait.until(ExpectedConditions.titleContains("Swag Labs"));
+
+        System.out.println("Running tests on: " + System.getProperty("env", "dev"));
+        System.out.println("Browser: " + browser);
+        System.out.println("Resolution: " + resolutionKey);
+        System.out.println("Base URL: " + baseUrl);
     }
 
     @AfterEach
