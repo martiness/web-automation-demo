@@ -15,6 +15,8 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,6 +32,8 @@ public class SortingFlowTest extends BaseTest {
     Then the items are sorted in the correct manner
     Logout from the system
      */
+
+    private static final Logger logger = LoggerFactory.getLogger(SortingFlowTest.class);
 
     @Epic("UI Tests")
     @Feature("Sorting Flow")
@@ -54,14 +58,14 @@ public class SortingFlowTest extends BaseTest {
         // Take current prices
         List<Double> actualPrices = inventoryPage.getItemPrices();
         // Print current prices in the console
-        System.out.println("Product prices: ");
-        actualPrices.forEach(price -> System.out.println(" - $" + price));
+        logger.info("Product prices: ");
+        actualPrices.forEach(price -> logger.info(" - $ {}", price));
         // Copy and sort the prices
         List<Double> sortedPrices = new ArrayList<>(actualPrices);
         sortedPrices.sort(Comparator.reverseOrder());
         // Print sorted prices in the console
-        System.out.println("Expected prices (sorted in descending order): ");
-        sortedPrices.forEach(price -> System.out.println(" - $" + price));
+        logger.info("Expected prices (sorted in descending order): ");
+        sortedPrices.forEach(price -> logger.info(" - $ {}", price));
         // Compare that expected (sorted) prices art the same with the actual
         assertEquals(sortedPrices, actualPrices, "Items are not sorted from High to Low");
 

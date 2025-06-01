@@ -21,6 +21,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -42,6 +44,8 @@ public class CheckoutFlowTest extends BaseTest {
     Verify cart is empty
     Logout from the system
     */
+    private static final Logger logger = LoggerFactory.getLogger(CheckoutFlowTest.class);
+
     private static final String ITEM_BACKPACK = "Sauce Labs Backpack";
     private static final String ITEM_TSHIRT = "Test.allTheThings() T-Shirt (Red)";
     private static final String ITEM_ONESIE = "Sauce Labs Onesie";

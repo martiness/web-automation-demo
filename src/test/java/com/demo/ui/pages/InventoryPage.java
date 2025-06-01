@@ -1,10 +1,13 @@
 package com.demo.ui.pages;
 
+import com.demo.ui.tests.SortingFlowTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
@@ -20,6 +23,8 @@ public class InventoryPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
+
+    private static final Logger logger = LoggerFactory.getLogger(InventoryPage.class);
 
     // Elements
     private final By inventoryItems = By.className("inventory_item");
@@ -76,7 +81,7 @@ public class InventoryPage {
             WebElement badge = wait.until(ExpectedConditions.visibilityOf(badges.get(0)));
             return Integer.parseInt(badge.getText());
         } catch (Exception e) {
-            System.out.println("Badge not visible or not parseable.");
+            logger.debug("Badge not visible or not parseable.");
             return 0;
         }
     }

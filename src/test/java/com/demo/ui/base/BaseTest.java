@@ -2,15 +2,20 @@ package com.demo.ui.base;
 
 import com.demo.ui.utils.BrowserResolution;
 import com.demo.ui.utils.ConfigReader;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.WebDriver;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -29,6 +34,8 @@ public abstract class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected String baseUrl;
+
+    private static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     @BeforeEach
     public void setUp() {
@@ -68,9 +75,9 @@ public abstract class BaseTest {
         try {
             BrowserResolution resolution = BrowserResolution.from(resolutionKey);
             driver.manage().window().setSize(resolution.toDimension());
-            System.out.println("[INFO] Resolution set to: " + resolutionKey);
+            logger.info("Resolution set to: {}", resolutionKey);
         } catch (Exception e) {
-            System.out.println("[WARN] Invalid resolution config: '" + resolutionKey + "', using default maximize.");
+            logger.warn("Invalid resolution config: {}, using default maximize.", resolutionKey);
             driver.manage().window().maximize();
         }
 
@@ -80,10 +87,10 @@ public abstract class BaseTest {
         wait.until(ExpectedConditions.titleContains("Swag Labs"));
 
         // Log execution configuration to console
-        System.out.println("[INFO] Running tests on: " + System.getProperty("env", "dev"));
-        System.out.println("[INFO] Browser: " + browser);
-        System.out.println("[INFO] Resolution: " + resolutionKey);
-        System.out.println("[INFO] Base URL: " + baseUrl);
+        logger.info("Running tests on: {}", System.getProperty("env", "dev"));
+        logger.info("Browser: {}", browser);
+        logger.info("Resolution: {}", resolutionKey);
+        logger.info("Base URL: {}", baseUrl);
     }
 
     @AfterEach
@@ -91,9 +98,9 @@ public abstract class BaseTest {
         if (driver != null) {
             try {
                 driver.quit();
-                System.out.println("[INFO] WebDriver session closed successfully.");
+                logger.info("WebDriver session closed successfully.");
             } catch (Exception e) {
-                System.err.println("[ERROR] Failed to quit WebDriver: " + e.getMessage());
+                logger.error("Failed to quit WebDriver: {}", e.getMessage());
             }
         }
     }

@@ -32,19 +32,21 @@ This project demonstrates a functional UI test automation framework using **Java
 ## 🧭 Project Structure
 
 ```
-src
-├── main
-│   └── java
-│       └── com.demo.utils         → ConfigReader, BrowserResolution
-├── test
-│   └── java
-│       ├── com.demo.ui           → Main scenario tests
-│       └── com.demo.ui.exploratory → Component/utility tests
-└── resources
-    └── config
-        ├── dev.properties
-        ├── test.properties
-        └── staging.properties
+src/
+└── test/
+    ├── java/
+    │   └── com/demo/ui/
+    │       ├── base/               # BaseTest and shared test setup logic
+    │       ├── pages/              # Page Object classes (LoginPage, CartPage, etc.)
+    │       ├── tests/              # High-level scenario tests (e.g., CheckoutFlowTest)
+    │       ├── exploratory/        # Additional or low-level exploratory tests
+    │       └── utils/              # ConfigReader, BrowserResolution, etc.
+    └── resources/
+        └── config/                 # Environment-specific config files (dev.properties, etc.)
+
+README.md                            # Project overview and instructions
+pom.xml                              # Maven build configuration
+
 ```
 
 ---
@@ -110,6 +112,19 @@ base.url=https://www.saucedemo.com/
 - `HD` → 1280x720
 - `SMALL` → 800x600
 
+---
+
+## 📂 Logging and Debugging
+
+This project uses SLF4J with Logback for structured logging.
+
+    Logs are printed to the console
+
+Example output:
+```
+14:05:22 INFO  [LoginPage] - Attempting login with username: standard_user
+14:05:23 INFO  [InventoryPage] - Added first and last item to cart
+```
 ---
 
 ## 📊 Allure Report
