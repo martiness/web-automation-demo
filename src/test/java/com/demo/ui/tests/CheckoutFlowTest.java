@@ -1,18 +1,32 @@
-package com.demo.ui;
+package com.demo.ui.tests;
 
-import com.demo.ui.pages.*;
-import io.qameta.allure.*;
+import com.demo.ui.base.BaseTest;
+import com.demo.ui.pages.CartPage;
+import com.demo.ui.pages.CheckoutPage;
+import com.demo.ui.pages.CheckoutOverviewPage;
+import com.demo.ui.pages.CheckoutCompletePage;
+import com.demo.ui.pages.InventoryPage;
+import com.demo.ui.pages.MenuPage;
+import com.demo.ui.pages.LoginPage;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import io.qameta.allure.junit5.AllureJunit5;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @ExtendWith(AllureJunit5.class)
 public class CheckoutFlowTest extends BaseTest {

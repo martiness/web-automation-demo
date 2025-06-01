@@ -1,16 +1,17 @@
 package com.demo.ui.exploratory;
 
-
-import com.demo.ui.BaseTest;
+import com.demo.ui.base.BaseTest;
 import com.demo.ui.pages.LoginPage;
-import org.junit.jupiter.api.*;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Disabled // Internal exploratory verification tests
 @Tag("exploratory")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LoginTests extends BaseTest
 {
     @Test
@@ -38,15 +39,4 @@ public class LoginTests extends BaseTest
         loginPage.loginAs("", "");
         assertTrue(loginPage.getErrorMessage().contains("Epic sadface: Username is required"));
     }
-
-    @AfterAll
-    public void tearDown() {
-        if (driver != null) {
-            System.out.println("Quitting driver...");
-            driver.quit();
-            driver = null;
-        }
-    }
-
-
 }

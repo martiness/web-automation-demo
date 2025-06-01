@@ -1,7 +1,7 @@
-package com.demo.ui;
+package com.demo.ui.base;
 
-import com.demo.utils.BrowserResolution;
-import com.demo.utils.ConfigReader;
+import com.demo.ui.utils.BrowserResolution;
+import com.demo.ui.utils.ConfigReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;

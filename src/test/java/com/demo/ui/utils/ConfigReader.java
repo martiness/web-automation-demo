@@ -1,4 +1,4 @@
-package com.demo.utils;
+package com.demo.ui.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,7 +1,13 @@
 package com.demo.ui.exploratory;
 
-import com.demo.ui.BaseTest;
-import com.demo.ui.pages.*;
+import com.demo.ui.base.BaseTest;
+import com.demo.ui.pages.CartPage;
+import com.demo.ui.pages.CheckoutPage;
+import com.demo.ui.pages.CheckoutOverviewPage;
+import com.demo.ui.pages.CheckoutCompletePage;
+import com.demo.ui.pages.InventoryPage;
+import com.demo.ui.pages.LoginPage;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.demo.utils;
+package com.demo.ui.utils;
 
 import org.openqa.selenium.Dimension;
 
