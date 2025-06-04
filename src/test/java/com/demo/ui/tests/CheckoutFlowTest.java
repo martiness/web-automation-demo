@@ -1,6 +1,6 @@
 package com.demo.ui.tests;
 
-import com.demo.ui.base.BaseTest;
+import com.demo.ui.core.BaseTest;
 import com.demo.ui.pages.CartPage;
 import com.demo.ui.pages.CheckoutPage;
 import com.demo.ui.pages.CheckoutOverviewPage;

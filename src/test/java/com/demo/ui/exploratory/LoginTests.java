@@ -1,6 +1,6 @@
 package com.demo.ui.exploratory;
 
-import com.demo.ui.base.BaseTest;
+import com.demo.ui.core.BaseTest;
 import com.demo.ui.pages.LoginPage;
 
 import org.junit.jupiter.api.Disabled;

@@ -1,6 +1,6 @@
 package com.demo.ui.tests;
 
-import com.demo.ui.base.BaseTest;
+import com.demo.ui.core.BaseTest;
 import com.demo.ui.pages.InventoryPage;
 import com.demo.ui.pages.MenuPage;
 import com.demo.ui.pages.LoginPage;

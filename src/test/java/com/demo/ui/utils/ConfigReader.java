@@ -12,11 +12,12 @@ import java.util.Properties;
  */
 public class ConfigReader {
     private static final Properties properties = new Properties();
+    private static final String DEFAULT_ENV = "dev";
 
     // Static block to load configuration at class loading time
     static {
         // Determine which environment to use (default: dev)
-        String env = System.getProperty("env", "dev"); // default environment
+        String env = System.getProperty("env", DEFAULT_ENV);
         String fileName = "config/" + env + ".properties";
         try (InputStream input = ConfigReader.class.getClassLoader().getResourceAsStream(fileName)) {
             if (input == null) {
@@ -37,6 +38,46 @@ public class ConfigReader {
      */
     public static String get(String key) {
         return properties.getProperty(key);
+    }
+
+    /**
+     * Retrieves the base URL for the current test environment.
+     * This value is expected to be defined as {@code base.url} in the environment config file.
+     *
+     * @return the base URL as a {@code String}
+     */
+    public static String getBaseUrl() {
+        return get("base.url");
+    }
+
+    /**
+     * Retrieves the selected browser type.
+     * This value is read from the system property {@code browser} or defaults to {@code chrome}.
+     *
+     * @return the name of the browser in lowercase (e.g., {@code chrome}, {@code firefox})
+     */
+    public static String getBrowser() {
+        return System.getProperty("browser", "chrome").toLowerCase();
+    }
+
+    /**
+     * Retrieves the configured screen resolution.
+     * This value is expected to be defined as {@code browser.resolution} in the config file.
+     *
+     * @return the resolution key (e.g., {@code FULL_HD}, {@code HD})
+     */
+    public static String getResolution() {
+        return get("browser.resolution");
+    }
+
+    /**
+     * Retrieves the current environment key.
+     * This is read from the system property {@code env} or defaults to {@code dev}.
+     *
+     * @return the name of the current environment
+     */
+    public static String getEnvironment() {
+        return System.getProperty("env", DEFAULT_ENV);
     }
 }
 

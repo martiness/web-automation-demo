@@ -36,7 +36,7 @@ src/
 └── test/
     ├── java/
     │   └── com/demo/ui/
-    │       ├── base/               # BaseTest and shared test setup logic
+    │       ├── core/               # BaseTest, DriverFactory, ResolutionManager
     │       ├── pages/              # Page Object classes (LoginPage, CartPage, etc.)
     │       ├── tests/              # High-level scenario tests (e.g., CheckoutFlowTest)
     │       ├── exploratory/        # Additional or low-level exploratory tests
@@ -48,6 +48,22 @@ README.md                            # Project overview and instructions
 pom.xml                              # Maven build configuration
 
 ```
+
+---
+
+---
+
+## 🧱 Architecture & Principles
+
+This project follows the **Page Object Model (POM)** and applies **SOLID design principles**, especially:
+
+- **SRP (Single Responsibility Principle):**
+    - `BaseTest` handles test lifecycle only
+    - `DriverFactory` handles WebDriver instantiation
+    - `ResolutionManager` sets window size
+    - `ConfigReader` handles all environment-specific configuration
+
+This separation allows easy scaling, maintenance, and extension of the framework.
 
 ---
 
@@ -150,7 +166,6 @@ allure serve target/allure-results
 
 ## 🧠 Possible Enhancements
 
-- Add logging with SLF4J + Logback
 - Add test data providers
 - Add headless browser toggle
 - Dockerize test execution
