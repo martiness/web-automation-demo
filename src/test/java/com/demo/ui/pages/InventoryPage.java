@@ -1,6 +1,5 @@
 package com.demo.ui.pages;
 
-import com.demo.ui.tests.SortingFlowTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -124,19 +123,5 @@ public class InventoryPage {
         List<WebElement> buttons = wait.until(
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(removeButtons));
         return buttons;
-    }
-
-    // Get Text from Element
-    public List<String> getTextFromElements(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator))
-                .stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
-    }
-
-    public List<WebElement> getAllInventoryItems() {
-        List<WebElement> items = wait.until(
-                ExpectedConditions.visibilityOfAllElementsLocatedBy(inventoryItems));
-        return items;
     }
 }

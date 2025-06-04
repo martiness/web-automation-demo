@@ -3,6 +3,7 @@ package com.demo.ui.base;
 import com.demo.ui.utils.BrowserResolution;
 import com.demo.ui.utils.ConfigReader;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -45,6 +46,7 @@ public abstract class BaseTest {
         // Instantiate the appropriate WebDriver with browser-specific options
         switch (browser) {
             case "firefox":
+                WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("-private");
                 firefoxOptions.addPreference("dom.webnotifications.enabled", false);
@@ -55,6 +57,7 @@ public abstract class BaseTest {
 
             case "chrome":
             default:
+                WebDriverManager.chromedriver().setup();
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--incognito");
                 options.addArguments("--disable-notifications");
